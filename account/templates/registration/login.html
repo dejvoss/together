@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+<h1>Log in</h1>
+{% if form.errors %}
+<p>User name or password is incorrect. Please try again.</p>
+{% else %}
+<p>Please log in to access the site.</p>
+{% endif %}
+<div class="login-form">
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ next }}" />
+    <input type="submit" value="Log in" />
+</form>
+<p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+</div>
+    <div class="social">
+    <ul>
+        <li class="facebook"><a href="{% url 'social:begin' 'facebook' %}">
+            <i class="fa fa-facebook"></i> Log in with Facebook</a></li>
+        </li>
+        <li class="google"><a href="{% url 'social:begin' 'google-oauth2' %}">
+            <i class="fa fa-google"></i> Log in with Google</a></li>
+    </ul>
+    </div>
+{% endblock %}
